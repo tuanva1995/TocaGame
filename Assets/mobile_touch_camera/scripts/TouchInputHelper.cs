@@ -29,6 +29,18 @@ namespace BitBenderGames
                 return Time.time - touchTimeStamp < 0.2f && Vector3.Distance(mouseDownPos, Input.mousePosition) < 5f;
             }
         }
+        private Camera _camera;
+        public Camera Camera
+        {
+            get
+            {
+                if (_camera == null)
+                {
+                    _camera = Camera.main;
+                }
+                return _camera;
+            }
+        }
 
         void Update()
         {
@@ -71,26 +83,26 @@ namespace BitBenderGames
             mobileTouchCamera.enabled = touchBlocker.Count == 0;
         }
 
-        //public RaycastHit2D[] GetAllRaycastHit()
-        //{
-        //    Vector3 worldTouchPos = GridBuildSystem.Instance.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-        //    worldTouchPos.z = 0;
+        public RaycastHit2D[] GetAllRaycastHit()
+        {
+            Vector3 worldTouchPos = Camera.ScreenToWorldPoint(Input.mousePosition);
+            worldTouchPos.z = 0;
 
-        //    hits = Physics2D.RaycastAll(worldTouchPos, Vector2.zero, float.PositiveInfinity);
-        //    return hits;
-        //}
+            hits = Physics2D.RaycastAll(worldTouchPos, Vector2.zero, float.PositiveInfinity);
+            return hits;
+        }
 
-        //public List<RaycastResult> GetRaycastUIHit()
-        //{
-        //    if (pointer == null)
-        //    {
-        //        pointer = new PointerEventData(EventSystem.current);
-        //    }
-        //    pointer.position = Input.mousePosition;
-        //    hitsUI.Clear();
-        //    EventSystem.current.RaycastAll(pointer, hitsUI);
-        //    return hitsUI;
-        //}
+        public List<RaycastResult> GetRaycastUIHit()
+        {
+            if (pointer == null)
+            {
+                pointer = new PointerEventData(EventSystem.current);
+            }
+            pointer.position = Input.mousePosition;
+            hitsUI.Clear();
+            EventSystem.current.RaycastAll(pointer, hitsUI);
+            return hitsUI;
+        }
     }
 }
 

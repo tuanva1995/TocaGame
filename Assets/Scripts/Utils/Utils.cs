@@ -47,12 +47,11 @@ public class Utils : MonoBehaviour
         return subString;
     }
     #region Cryptography
-    const string KEY = "cscmobi";
-    public static string XOROperator(string input)
+    public static string XOROperator(string input, string key)
     {
         char[] output = new char[input.Length];
         for (int i = 0; i < input.Length; i++)
-            output[i] = (char)(input[i] ^ KEY[i % KEY.Length]);
+            output[i] = (char)(input[i] ^ key[i % key.Length]);
         return new string(output);
     }
     public static string GenerateSHA256NonceFromRawNonce(string rawNonce)
