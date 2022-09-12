@@ -13,6 +13,4 @@ public class ConfigController : MonoBehaviour
 public class ItemData
 {
     public string id;
-    public string name;
-    public int amount = 5;
 }

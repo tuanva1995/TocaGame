@@ -14,12 +14,12 @@ public class ReceiptUI : Singleton<ReceiptUI>, IMessageHandle
 
     private void Awake()
     {
-        MessageManager.Instance.AddSubcriber(TeeMessageType.OnChangeState, this);
+        MessageManager.Instance.AddSubscriber(TeeMessageType.OnChangeState, this);
     }
 
     private void OnDestroy()
     {
-        MessageManager.Instance.RemoveSubcriber(TeeMessageType.OnChangeState, this);
+        MessageManager.Instance.RemoveSubscriber(TeeMessageType.OnChangeState, this);
     }
 
     public void Show()
@@ -62,12 +62,12 @@ public class ReceiptUI : Singleton<ReceiptUI>, IMessageHandle
 
     public void OnClickHome()
     {
-        GameController.Instance.SetupGame();
+        SceneController.Instance.LoadScene("Home");
     }
 
     public void OnClickRestart()
     {
         Hide();
-        GameController.Instance.RestartGame();
+        GameController.Instance.SetupGame();
     }
 }

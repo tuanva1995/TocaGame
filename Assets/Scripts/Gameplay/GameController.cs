@@ -39,17 +39,6 @@ public class GameController : Singleton<GameController>
         itemInBag = new List<ItemInBag>();
     }
 
-    public void RestartGame()
-    {
-        // Renew State
-        foreach (DishObject dishObject in dishes)
-        {
-            dishObject.SetupData(dishObject.ItemId);
-        }
-        itemInBag = new List<ItemInBag>();
-        StartGame();
-    }
-
     public void SetupDish(int dishId, string itemId)
     {
         DishObject dish = dishes.Find(e => e.dishId == dishId);

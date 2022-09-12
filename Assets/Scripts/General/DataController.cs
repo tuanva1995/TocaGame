@@ -74,6 +74,7 @@ public class DataController : Singleton<DataController>
             ResetData();
         if (FindObjectOfType<IAPSilentProcesser>() != null)
             FindObjectOfType<IAPSilentProcesser>().canProcessIAP = true;
+        SceneController.Instance.LoadScene("Home");
     }
     public void ResetData()
     {

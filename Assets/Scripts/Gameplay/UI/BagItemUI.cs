@@ -7,12 +7,12 @@ public class BagItemUI : Singleton<BagItemUI>, IMessageHandle
 {
     private void Awake()
     {
-        MessageManager.Instance.AddSubcriber(TeeMessageType.OnChangeState, this);
+        MessageManager.Instance.AddSubscriber(TeeMessageType.OnChangeState, this);
     }
 
     private void OnDestroy()
     {
-        MessageManager.Instance.RemoveSubcriber(TeeMessageType.OnChangeState, this);
+        MessageManager.Instance.RemoveSubscriber(TeeMessageType.OnChangeState, this);
     }
 
     public void Show()

@@ -34,7 +34,7 @@ public class MessageManager : MonoBehaviour, ISerializationCallbackReceiver
     private static MessageManager instance = null;
     [HideInInspector] public List<TeeMessageType> _keys = new List<TeeMessageType>();
     [HideInInspector] public List<List<IMessageHandle>> _values = new List<List<IMessageHandle>>();
-    private Dictionary<TeeMessageType, List<IMessageHandle>> subcribers = new Dictionary<TeeMessageType, List<IMessageHandle>>();
+    private Dictionary<TeeMessageType, List<IMessageHandle>> subscribers = new Dictionary<TeeMessageType, List<IMessageHandle>>();
     public static MessageManager Instance { get { return instance; } }
     void Start()
     {
@@ -46,24 +46,24 @@ public class MessageManager : MonoBehaviour, ISerializationCallbackReceiver
         else
             Destroy(gameObject);
     }
-    public void AddSubcriber(TeeMessageType type, IMessageHandle handle)
+    public void AddSubscriber(TeeMessageType type, IMessageHandle handle)
     {
-        if (!subcribers.ContainsKey(type))
-            subcribers[type] = new List<IMessageHandle>();
-        if (!subcribers[type].Contains(handle))
-            subcribers[type].Add(handle);
+        if (!subscribers.ContainsKey(type))
+            subscribers[type] = new List<IMessageHandle>();
+        if (!subscribers[type].Contains(handle))
+            subscribers[type].Add(handle);
     }
-    public void RemoveSubcriber(TeeMessageType type, IMessageHandle handle)
+    public void RemoveSubscriber(TeeMessageType type, IMessageHandle handle)
     {
-        if (subcribers.ContainsKey(type))
-            if (subcribers[type].Contains(handle))
-                subcribers[type].Remove(handle);
+        if (subscribers.ContainsKey(type))
+            if (subscribers[type].Contains(handle))
+                subscribers[type].Remove(handle);
     }
     public void SendMessage(Message message)
     {
-        if (subcribers.ContainsKey(message.type))
-            for (int i = subcribers[message.type].Count - 1; i > -1; i--)
-                subcribers[message.type][i].Handle(message);
+        if (subscribers.ContainsKey(message.type))
+            for (int i = subscribers[message.type].Count - 1; i > -1; i--)
+                subscribers[message.type][i].Handle(message);
     }
     public void SendMessageWithDelay(Message message, float delay)
     {
@@ -78,7 +78,7 @@ public class MessageManager : MonoBehaviour, ISerializationCallbackReceiver
     {
         _keys.Clear();
         _values.Clear();
-        foreach (var element in subcribers)
+        foreach (var element in subscribers)
         {
             _keys.Add(element.Key);
             _values.Add(element.Value);
